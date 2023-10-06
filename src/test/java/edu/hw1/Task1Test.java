@@ -14,7 +14,8 @@ public class Task1Test {
         "999:59, 59999",
         "55:g6, -1",
         "100.12, -1",
-        ":, -1"
+        "20:-1, -1"
+
     })
     void minutesToSecondsCsvSourceTest(String timeLength, int expectedTotalTime) {
         // when
