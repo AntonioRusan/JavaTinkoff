@@ -19,9 +19,9 @@ public class Task1Test {
     })
     void minutesToSecondsCsvSourceTest(String timeLength, int expectedTotalTime) {
         // when
-        int result = Task1.minutesToSeconds(timeLength);
+        int totalTimeInSeconds = Task1.minutesToSeconds(timeLength);
 
         // then
-        assertThat(result).isEqualTo(expectedTotalTime);
+        assertThat(totalTimeInSeconds).isEqualTo(expectedTotalTime);
     }
 }
