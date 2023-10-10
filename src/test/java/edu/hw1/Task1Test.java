@@ -10,12 +10,12 @@ public class Task1Test {
         "01:00, 60",
         "00:00, 0",
         "13:56, 836",
-        "10:60, -1",
         "999:59, 59999",
+        "10:60, -1",
         "55:g6, -1",
         "100.12, -1",
-        "20:-1, -1"
-
+        "20:-1, -1",
+        "bad, -1"
     })
     void minutesToSecondsCsvSourceTest(String timeLength, int expectedTotalTime) {
         // when
