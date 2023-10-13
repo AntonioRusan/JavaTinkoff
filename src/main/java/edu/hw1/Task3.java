@@ -10,9 +10,9 @@ public final class Task3 {
         int secondLength = secondArray.length;
         boolean result;
         if (firstLength == 0) {
-            result = true;
+            return true;
         } else if (secondLength == 0) {
-            result = false;
+            return false;
         } else {
             int minInFirstArray = getMinInArray(firstArray);
             int maxInFirstArray = getMaxInArray(firstArray);

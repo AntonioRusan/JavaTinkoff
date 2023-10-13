@@ -11,12 +11,12 @@ public final class Task1 {
         String[] timeSplit = timeLength.split(":");
         int result;
         if (timeSplit.length != 2) {
-            result = -1;
+            return -1;
         } else {
             int minutes = stringToNumber(timeSplit[0]);
             int seconds = stringToNumber(timeSplit[1]);
             if (minutes == -1 || seconds == -1) {
-                result = -1;
+                return -1;
             } else {
                 result = (seconds < SECONDS_IN_MINUTE) ? (minutes * SECONDS_IN_MINUTE + seconds) : -1;
             }
@@ -26,7 +26,7 @@ public final class Task1 {
 
     private static int stringToNumber(String str) {
         int result = -1;
-        if (str != null && str.matches("[0-9]+")) {
+        if (str.matches("[0-9]+")) {
             result = Integer.parseInt(str);
         }
         return result;

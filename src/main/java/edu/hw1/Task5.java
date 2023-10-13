@@ -10,7 +10,7 @@ public final class Task5 {
         boolean result = isPalindrome(inputStrBuilder);
         while (inputStrBuilder.length() >= 2 && !result) {
             if (isPalindrome(inputStrBuilder)) {
-                result = true;
+                return true;
             } else {
                 StringBuilder sumStrBuilder = new StringBuilder();
                 for (int i = 0; i < inputStrBuilder.length() - 1; i += 2) {
