@@ -1,42 +1,57 @@
 package edu.project1;
 
+import edu.project1.responses.FailGuessResponse;
+import edu.project1.responses.GameCanceledResponse;
+import edu.project1.responses.GameOverResponse;
+import edu.project1.responses.GuessResponse;
+import edu.project1.responses.SuccessGuessResponse;
+import edu.project1.responses.WinResponse;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HangmanSession {
 
     private final String codeWord;
-    private String answeredWord;
+    private char[] answeredWord;
     private final int maxNumberOfAttempts;
     private int numberOfAttempts;
 
-    public HangmanSession(String codeWord, int maxNumberOfAttempts) {
+    public HangmanSession(String codeWord) {
         this.codeWord = codeWord;
-        this.maxNumberOfAttempts = maxNumberOfAttempts;
-        this.numberOfAttempts = maxNumberOfAttempts;
-        this.answeredWord = "*".repeat(codeWord.length());
+        this.maxNumberOfAttempts = codeWord.length();
+        this.numberOfAttempts = 0;
+        this.answeredWord = new char[codeWord.length()];
+        Arrays.fill(answeredWord, '*');
     }
 
     public GuessResponse guessWord(char letter) {
         List<Integer> allAppearancesList = getAllAppearancesInCodeWord(letter);
         if (allAppearancesList.isEmpty()) {
-            if (numberOfAttempts == maxNumberOfAttempts)
-            {
-                return new GameOverResponse(numberOfAttempts, maxNumberOfAttempts, answeredWord);
-            }
-            else
-            {
-                return new FailGuessResponse(numberOfAttempts, maxNumberOfAttempts, answeredWord);
+            numberOfAttempts++;
+            if (numberOfAttempts == maxNumberOfAttempts) {
+                return new GameOverResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
+            } else {
+                return new FailGuessResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
             }
         } else {
-            for (ind: allAppearancesList){
-
+            for (Integer ind : allAppearancesList) {
+                answeredWord[ind] = codeWord.charAt(ind);
+            }
+            if (!(new String(answeredWord).contains("*"))) {
+                return new WinResponse(new String(answeredWord));
+            } else {
+                return new SuccessGuessResponse(new String(answeredWord));
             }
         }
     }
 
+    public GuessResponse cancelGame() {
+        return new GameCanceledResponse(new String(answeredWord));
+    }
+
     private List<Integer> getAllAppearancesInCodeWord(char letter) {
-        List<Integer> result = new ArrayList<Integer>();
+        List<Integer> result = new ArrayList<>();
         int index = this.codeWord.indexOf(letter);
         while (index >= 0) {
             result.add(index);
