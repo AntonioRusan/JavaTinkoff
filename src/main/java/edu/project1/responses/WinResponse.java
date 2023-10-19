@@ -5,4 +5,8 @@ public record WinResponse(String answeredWord) implements GuessResponse {
         return "Hit!\n" + getWord(answeredWord) + "\nYou won!";
     }
 
+    public String answeredWord() {
+        return answeredWord;
+    }
+
 }

@@ -5,4 +5,8 @@ public record FailGuessResponse(int currentAttempts, int maxAttempts, String ans
         return String.format("Missed, mistake %d out of %d.\n", currentAttempts, maxAttempts) + getWord(answeredWord);
     }
 
+    public String answeredWord() {
+        return answeredWord;
+    }
+
 }

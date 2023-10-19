@@ -36,7 +36,7 @@ public class ConsoleHangman {
         System.out.println("\nEND GAME\nGOODBYE!");
     }
 
-    private GuessResponse tryGuess(HangmanSession session, String input) {
+    public GuessResponse tryGuess(HangmanSession session, String input) {
         if (input.length() == 1 && input.matches("[a-zA-Z]+")) {
             return session.guessWord(input.toLowerCase().charAt(0));
         } else {

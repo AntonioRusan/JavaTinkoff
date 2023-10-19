@@ -5,4 +5,8 @@ public record GameOverResponse(int currentAttempts, int maxAttempts, String answ
         return String.format("Missed, mistake %d out of %d.\n", currentAttempts, maxAttempts) + getWord(answeredWord)
             + "\nYou lost!";
     }
+
+    public String answeredWord() {
+        return answeredWord;
+    }
 }

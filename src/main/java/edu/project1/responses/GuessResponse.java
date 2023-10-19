@@ -7,6 +7,8 @@ public sealed interface GuessResponse permits FailGuessResponse,
     WinResponse {
     String message();
 
+    String answeredWord();
+
     default String getWord(String word) {
         return "The word: " + word;
     }

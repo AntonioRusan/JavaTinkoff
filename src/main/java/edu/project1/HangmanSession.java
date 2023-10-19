@@ -26,24 +26,35 @@ public class HangmanSession {
     }
 
     public GuessResponse guessWord(char letter) {
-        List<Integer> allAppearancesList = getAllAppearancesInCodeWord(letter);
-        if (allAppearancesList.isEmpty()) {
-            numberOfAttempts++;
-            if (numberOfAttempts == maxNumberOfAttempts) {
-                return new GameOverResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
-            } else {
-                return new FailGuessResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
-            }
+        if (numberOfAttempts == maxNumberOfAttempts) {
+            return new GameOverResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
         } else {
-            for (Integer ind : allAppearancesList) {
-                answeredWord[ind] = codeWord.charAt(ind);
-            }
-            if (!(new String(answeredWord).contains("*"))) {
-                return new WinResponse(new String(answeredWord));
+            List<Integer> allAppearancesList = getAllAppearancesInCodeWord(letter);
+            if (allAppearancesList.isEmpty()) {
+                if (numberOfAttempts < maxNumberOfAttempts) {
+                    numberOfAttempts++;
+                }
+                GuessResponse failResult;
+                if (numberOfAttempts == maxNumberOfAttempts) {
+                    failResult = new GameOverResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
+                } else {
+                    failResult = new FailGuessResponse(numberOfAttempts, maxNumberOfAttempts, new String(answeredWord));
+                }
+                return failResult;
             } else {
-                return new SuccessGuessResponse(new String(answeredWord));
+                for (Integer ind : allAppearancesList) {
+                    answeredWord[ind] = codeWord.charAt(ind);
+                }
+                GuessResponse goodResult;
+                if (!(new String(answeredWord).contains("*"))) {
+                    goodResult = new WinResponse(new String(answeredWord));
+                } else {
+                    goodResult = new SuccessGuessResponse(new String(answeredWord));
+                }
+                return goodResult;
             }
         }
+
     }
 
     public GuessResponse cancelGame() {
