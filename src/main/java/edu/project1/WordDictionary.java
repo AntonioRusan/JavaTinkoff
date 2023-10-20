@@ -1,4 +1,4 @@
-package edu.project1.responses;
+package edu.project1;
 
 import java.util.Random;
 

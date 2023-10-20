@@ -4,7 +4,8 @@ public sealed interface GuessResponse permits FailGuessResponse,
     GameCanceledResponse,
     GameOverResponse,
     SuccessGuessResponse,
-    WinResponse {
+    WinResponse,
+    WrongInputResponse {
     String message();
 
     String answeredWord();

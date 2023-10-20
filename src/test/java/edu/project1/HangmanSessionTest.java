@@ -97,7 +97,7 @@ public class HangmanSessionTest {
     }
 
     @Test
-    @DisplayName("Проверка что игра возвращает сообщение о поражении, когда угадываем после того, как кончились попытки")
+    @DisplayName("Проверка, что игра возвращает сообщение о поражении, когда угадываем после того, как кончились попытки")
     void checkAfterGameOverGuess() {
         // given
         String codeWord = "grass";

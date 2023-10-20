@@ -1,9 +1,9 @@
 package edu.project1.responses;
 
-public record WinResponse(String answeredWord) implements GuessResponse {
+public record WrongInputResponse(String answeredWord) implements GuessResponse {
     @Override
     public String message() {
-        return "Hit!\n" + getWord(answeredWord) + "\nYou won!";
+        return "Wrong input! Try again!\n";
     }
 
     @Override

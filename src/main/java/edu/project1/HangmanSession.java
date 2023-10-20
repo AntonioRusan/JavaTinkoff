@@ -57,6 +57,10 @@ public class HangmanSession {
 
     }
 
+    public String getAnsweredWord() {
+        return new String(answeredWord);
+    }
+
     public GuessResponse cancelGame() {
         return new GameCanceledResponse(new String(answeredWord));
     }
