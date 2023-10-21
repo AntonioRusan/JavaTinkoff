@@ -30,7 +30,7 @@ public class Task2 {
 
     public static class Square extends Rectangle {
         public Square() {
-            super();
+            super(0, 0);
         }
 
         public Square(int side) {
