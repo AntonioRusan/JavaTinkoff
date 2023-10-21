@@ -93,7 +93,7 @@ public class Task3 {
                 try (Connection currentConnection = manager.getConnection()) {
                     currentConnection.execute(command);
                     hasConnection = true;
-                } catch (ConnectionException ex) {
+                } catch (Exception ex) {
                     LOGGER.info("Cannot connect: attempt " + currentAttempt + " of " + maxAttempts);
                     if (currentAttempt == maxAttempts) {
                         throw new ConnectionException("Number of connection attempts exceeded!", ex);
