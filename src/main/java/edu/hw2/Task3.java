@@ -78,15 +78,15 @@ public class Task3 {
             this.maxAttempts = maxAttempts;
         }
 
-        public void updatePackages() throws Exception {
+        public void updatePackages() throws ConnectionException {
             tryExecute("apt update && apt upgrade -y");
         }
 
-        public void listAllFilesInDirectory() throws Exception {
+        public void listAllFilesInDirectory() throws ConnectionException {
             tryExecute("ls -a");
         }
 
-        void tryExecute(String command) throws Exception {
+        void tryExecute(String command) throws ConnectionException {
             boolean hasConnection = false;
             int currentAttempt = 1;
             while (!hasConnection) {
