@@ -30,7 +30,7 @@ public class Task3Test {
         PopularCommandExecutor executor = new PopularCommandExecutor(new FaultyConnectionManager(1), 3);
 
         // when
-        Exception exception = assertThrows(ConnectionException.class, () -> executor.updatePackages());
+        Exception exception = assertThrows(ConnectionException.class, () -> executor.listAllFilesInDirectory());
 
         String expectedMessage = "Number of connection attempts exceeded!";
         String actualMessage = exception.getMessage();
