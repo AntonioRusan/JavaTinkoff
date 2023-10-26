@@ -26,6 +26,9 @@ public class Task2 {
                 }
             }
         }
+        if (!bracketStack.isEmpty()) {
+            throw new IllegalArgumentException("Bracket sequence is not balanced!");
+        }
         return resultClusters;
     }
 }

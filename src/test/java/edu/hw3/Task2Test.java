@@ -63,10 +63,8 @@ public class Task2Test {
     @ParameterizedTest
     @ValueSource(strings = {")(", "(()", "())", "() (()))"})
     @DisplayName("Неправильная скобочная последовательность")
-    void notBalancedSequenceTest() {
+    void notBalancedSequenceTest(String inputString) {
         // given
-        String inputString = ")(";
-
         // when
         Exception exception = assertThrows(IllegalArgumentException.class, () -> Task2.clusterizeBrackets(inputString));
 
