@@ -10,22 +10,6 @@ public class Task5 {
 
     }
 
-    public static record Person(String name, String surname) {
-        public String getAsString() {
-            if (name.isEmpty()){
-                return surname;
-            }
-            else {
-                return name + " " + surname;
-            }
-        }
-    }
-
-    public static enum SortOrder {
-        ASC,
-        DESC,
-    }
-
     public static ArrayList<Person> parseContacts(@Nullable ArrayList<String> inputArray, SortOrder order) {
         ArrayList<Person> resultPersons = new ArrayList<>();
         if (inputArray == null || inputArray.isEmpty()) {
@@ -38,7 +22,8 @@ public class Task5 {
         TreeMap<String, String> surNameAndName = new TreeMap<>(comparator);
         for (var str : inputArray) {
             String[] words = str.split(" ");
-            String key, value;
+            String key;
+            String value;
             if (words.length < 2) {
                 key = words[0];
                 value = "";
@@ -52,17 +37,18 @@ public class Task5 {
         return resultPersons;
     }
 
-    public static ArrayList<String> personArrayToStrings(ArrayList<Person> inputArray){
+    public static ArrayList<String> personArrayToStrings(ArrayList<Person> inputArray) {
         ArrayList<String> resultArray = new ArrayList<>();
         inputArray.forEach(value -> resultArray.add(value.getAsString()));
         return resultArray;
     }
 
-    public static ArrayList<Person> stringArrayToPersons(ArrayList<String> inputArray){
+    public static ArrayList<Person> stringArrayToPersons(ArrayList<String> inputArray) {
         ArrayList<Person> resultArray = new ArrayList<>();
-        inputArray.forEach(value ->{
+        inputArray.forEach(value -> {
             String[] words = value.split(" ");
-            String surname, name;
+            String surname;
+            String name;
             if (words.length < 2) {
                 surname = words[0];
                 name = "";
@@ -74,6 +60,21 @@ public class Task5 {
         });
 
         return resultArray;
+    }
+
+    public static record Person(String name, String surname) {
+        public String getAsString() {
+            if (name.isEmpty()) {
+                return surname;
+            } else {
+                return name + " " + surname;
+            }
+        }
+    }
+
+    public enum SortOrder {
+        ASC,
+        DESC,
     }
 
 }
