@@ -15,5 +15,6 @@ public class Task7Test {
         tree.put(null, "test");
         // then
         assertThat(tree.containsKey(null)).isTrue();
+        assertThat(tree.get(null)).isEqualTo("test");
     }
 }
