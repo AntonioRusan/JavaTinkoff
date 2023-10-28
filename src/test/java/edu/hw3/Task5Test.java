@@ -14,7 +14,7 @@ public class Task5Test {
 
     @Test
     @DisplayName("Тест сортировка по возрастанию")
-    void getPersonsASCTest() {
+    void getPersonsAscendingTest() {
         // given
         ArrayList<String> inputArray =
             new ArrayList<>(Arrays.asList("John Locke", "Thomas Aquinas", "David Hume", "Rene Descartes"));
@@ -32,7 +32,7 @@ public class Task5Test {
 
     @Test
     @DisplayName("Тест сортировка по убыванию")
-    void getPersonsDESCTest() {
+    void getPersonsDescendingTest() {
         // given
         ArrayList<String> inputArray = new ArrayList<>(Arrays.asList("Paul Erdos", "Leonhard Euler", "Carl Gauss"));
         ArrayList<Person> expectedArray =
@@ -57,7 +57,7 @@ public class Task5Test {
 
     @Test
     @DisplayName("Тест null")
-    void simpleGetPersonsNullCTest() {
+    void simpleGetPersonsNullTest() {
         // given
         ArrayList<String> inputArray = null;
         ArrayList<Person> expectedArray = new ArrayList<>();
@@ -69,7 +69,7 @@ public class Task5Test {
 
     @Test
     @DisplayName("Тест с отсутствующими фамилиями")
-    void simpleGetPersonsOnlyNameCTest() {
+    void simpleGetPersonsOnlyNameTest() {
         // given
         ArrayList<String> inputArray =
             new ArrayList<>(Arrays.asList("Paul", "Leonhard Euler", "Arthur", "Carl Gauss", "Artem"));
