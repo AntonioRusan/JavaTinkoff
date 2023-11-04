@@ -18,9 +18,9 @@ public class RecursiveBacktrackingMazeGenerator implements MazeGenerator {
         }
 
         boolean[][] visited = new boolean[height][width];
-        DepthFirstSearch(1, 1, height, width, visited, maze);
+        DepthFirstSearch(0, 0, height, width, visited, maze);
 
-        /*for (int i = 0; i < height; i++) {
+        for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 if (maze[i][j] == 1) {
                     System.out.print(".");
@@ -29,7 +29,7 @@ public class RecursiveBacktrackingMazeGenerator implements MazeGenerator {
                 }
             }
             System.out.println();
-        }*/
+        }
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
                 CellType cellType = (maze[i][j] == 0) ? WALL : PASSAGE;
