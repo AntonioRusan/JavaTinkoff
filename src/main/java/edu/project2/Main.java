@@ -1,9 +1,5 @@
 package edu.project2;
 
-import java.util.List;
-import static edu.project2.Cell.CellType.PASSAGE;
-import static edu.project2.Cell.CellType.WALL;
-
 public final class Main {
 
     private Main() {
@@ -12,10 +8,12 @@ public final class Main {
     public static void main(String[] args) {
         int height = 4;
         int width = 4;
-        //MazeGenerator myGen = new RecursiveBacktrackingMazeGenerator();
-        //Maze gg = myGen.createMaze(height, width);
+        MazeGenerator myGen = new RecursiveBacktrackingMazeGenerator();
+        Maze maze = myGen.createMaze(height, width);
+        MazePainter mzPainter = new ConsoleMazePainter();
+        mzPainter.showMaze(maze);
 
-        int[][] tempIntGrid = {
+        /*int[][] tempIntGrid = {
             { 1, 1, 1, 0 },
             { 0, 0, 1, 1 },
             { 0, 1, 1, 0 },
@@ -40,6 +38,6 @@ public final class Main {
         MazePainter mzPainter = new ConsoleMazePainter();
         mzPainter.showMaze(maze);
         System.out.println();
-        mzPainter.showPathInMaze(maze, ans);
+        mzPainter.showPathInMaze(maze, ans);*/
     }
 }

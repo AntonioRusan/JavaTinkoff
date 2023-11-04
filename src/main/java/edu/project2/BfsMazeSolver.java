@@ -26,11 +26,11 @@ public class BfsMazeSolver implements MazeSolver {
                 finish.y()
             ));
         } else {
-            return BreadthFirstSearchWithPath(start, finish, maze.height, maze.width, maze);
+            return breadthFirstSearchWithPath(start, finish, maze.height, maze.width, maze);
         }
     }
 
-    public List<Coordinate> BreadthFirstSearchWithPath(
+    public List<Coordinate> breadthFirstSearchWithPath(
         Coordinate start,
         Coordinate finish,
         int height,
@@ -53,15 +53,15 @@ public class BfsMazeSolver implements MazeSolver {
             Coordinate currentVertex = vertexQueue.poll();
             ArrayList<Direction> directionList = new ArrayList<>(List.of(Direction.values()));
             for (var dir : directionList) {
-                int new_x = currentVertex.x() + dir.dx;
-                int new_y = currentVertex.y() + dir.dy;
-                Coordinate new_Vertex = new Coordinate(new_x, new_y);
-                if (checkCoordinate(new_Vertex, height, width)) {
-                    Cell cellInMaze = maze.grid[new_x][new_y];
-                    if (distances[new_x][new_y] == -1 && cellInMaze.type() != Cell.CellType.WALL) {
-                        distances[new_x][new_y] = distances[currentVertex.x()][currentVertex.y()] + 1;
-                        vertexQueue.offer(new_Vertex);
-                        parentAndChildCoordinates.put(new_Vertex, currentVertex);
+                int newX = currentVertex.x() + dir.dx;
+                int newY = currentVertex.y() + dir.dy;
+                Coordinate newVertex = new Coordinate(newX, newY);
+                if (checkCoordinate(newVertex, height, width)) {
+                    Cell cellInMaze = maze.grid[newX][newY];
+                    if (distances[newX][newY] == -1 && cellInMaze.type() != Cell.CellType.WALL) {
+                        distances[newX][newY] = distances[currentVertex.x()][currentVertex.y()] + 1;
+                        vertexQueue.offer(newVertex);
+                        parentAndChildCoordinates.put(newVertex, currentVertex);
                     }
                 }
             }

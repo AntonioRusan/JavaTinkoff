@@ -15,7 +15,7 @@ public class ConsoleMazePainter implements MazePainter {
     public void showPathInMaze(Maze maze, List<Coordinate> path) {
         String[][] mazePainting = initMazeDraw(maze);
         for (var item : path) {
-            mazePainting[item.x() + 1][item.y() + 1] = CellImage.get(CellType.WAY);
+            mazePainting[item.x() + 1][item.y() + 1] = CELL_IMAGE.get(CellType.WAY);
         }
         printMaze(mazePainting);
     }
@@ -32,7 +32,7 @@ public class ConsoleMazePainter implements MazePainter {
         }
         for (int i = 0; i < maze.height; i++) {
             for (int j = 0; j < maze.width; j++) {
-                mazePainting[i + 1][j + 1] = CellImage.get(maze.grid[i][j].type());
+                mazePainting[i + 1][j + 1] = CELL_IMAGE.get(maze.grid[i][j].type());
             }
         }
         mazePainting[0][0] = "_";
@@ -51,7 +51,7 @@ public class ConsoleMazePainter implements MazePainter {
         }
     }
 
-    public static final HashMap<CellType, String> CellImage = new HashMap<>() {{
+    public static final HashMap<CellType, String> CELL_IMAGE = new HashMap<>() {{
         put(CellType.WALL, "██");
         put(CellType.PASSAGE, "  ");
         put(CellType.WAY, "**");
