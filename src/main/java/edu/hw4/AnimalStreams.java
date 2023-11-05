@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import static edu.hw4.Animal.Sex.F;
 import static edu.hw4.Animal.Sex.M;
@@ -140,6 +141,20 @@ public class AnimalStreams {
 
     }
 
+    public static Map<String, Set<ValidationError>> task19(List<Animal> animalList) {
+        return animalList.stream()
+            .filter(animal -> !animal.validateAnimal().isEmpty())
+            .collect(Collectors.toMap(Animal::name, Animal::validateAnimal));
+    }
+
+    public static Map<String, String> task20(List<Animal> animalList) {
+        return animalList.stream()
+            .filter(animal -> !animal.validateAnimal().isEmpty())
+            .collect(Collectors.toMap(Animal::name, Animal::validateAnimal))
+            .entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry ->
+                entry.getValue().stream().map(error -> error.fieldName() + ": " + error.errorType().toString())
+                    .collect(Collectors.joining("; "))));
+    }
 }
 
 
