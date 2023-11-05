@@ -1,7 +1,5 @@
 package edu.project2;
 
-import java.util.List;
-
 public final class Main {
 
     private Main() {
