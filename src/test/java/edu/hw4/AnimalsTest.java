@@ -3,9 +3,11 @@ package edu.hw4;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static edu.hw4.Animal.Sex;
@@ -336,6 +338,51 @@ public class AnimalsTest {
         Animal expected = new Animal("Nemo", FISH, M, 10, 40, 150, false);
         // when
         Animal actual = AnimalStreams.task18(input);
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName(
+        "Животные, в записях о которых есть ошибки: вернуть имя и список ошибок -> Map<String, Set<ValidationError>>")
+    void validateErrorsTask19() {
+        // given
+        List<Animal> input = new ArrayList<>() {{
+            add(new Animal("Nemo", null, M, -1, 40, 150, false));
+            add(new Animal("", FISH, null, 10, 40, 0, false));
+        }};
+        Map<String, Set<ValidationError>> expected = new HashMap<>() {{
+            put("Nemo", new HashSet<>() {{
+                add(new ValidationError("type", ValidationError.ValidationErrorType.EMPTY_VALUE));
+                add(new ValidationError("age", ValidationError.ValidationErrorType.INVALID_VALUE));
+            }});
+            put("", new HashSet<>() {{
+                add(new ValidationError("sex", ValidationError.ValidationErrorType.EMPTY_VALUE));
+                add(new ValidationError("name", ValidationError.ValidationErrorType.EMPTY_VALUE));
+                add(new ValidationError("weight", ValidationError.ValidationErrorType.INVALID_VALUE));
+            }});
+        }};
+        // when
+        Map<String, Set<ValidationError>> actual = AnimalStreams.task19(input);
+        // then
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    @DisplayName(
+        "Вернуть имя и названия полей с ошибками, объединенные в строку -> Map<String, String>")
+    void validateErrorsReadableTask20() {
+        // given
+        List<Animal> input = new ArrayList<>() {{
+            add(new Animal("Nemo", null, M, -1, 40, 150, false));
+            add(new Animal("", FISH, null, 10, 40, 0, false));
+        }};
+        Map<String, String> expected = new HashMap<>() {{
+            put("Nemo", "age: INVALID_VALUE; type: EMPTY_VALUE");
+            put("", "name: EMPTY_VALUE; sex: EMPTY_VALUE; weight: INVALID_VALUE");
+        }};
+        // when
+        Map<String, String> actual = AnimalStreams.task20(input);
         // then
         assertThat(actual).isEqualTo(expected);
     }

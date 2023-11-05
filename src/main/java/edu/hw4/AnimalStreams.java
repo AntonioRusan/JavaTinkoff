@@ -152,7 +152,8 @@ public class AnimalStreams {
             .filter(animal -> !animal.validateAnimal().isEmpty())
             .collect(Collectors.toMap(Animal::name, Animal::validateAnimal))
             .entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, entry ->
-                entry.getValue().stream().map(error -> error.fieldName() + ": " + error.errorType().toString())
+                entry.getValue().stream().sorted(Comparator.comparing(ValidationError::fieldName))
+                    .map(error -> error.fieldName() + ": " + error.errorType().toString())
                     .collect(Collectors.joining("; "))));
     }
 }
