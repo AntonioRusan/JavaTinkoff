@@ -4,6 +4,7 @@ import edu.project2.Cell.CellType;
 import java.util.HashMap;
 import java.util.List;
 
+@SuppressWarnings("RegexpSinglelineJava")
 public class ConsoleMazePainter implements MazePainter {
     @Override
     public void showMaze(Maze maze) {
@@ -13,14 +14,11 @@ public class ConsoleMazePainter implements MazePainter {
 
     @Override
     public void showPathInMaze(Maze maze, List<Coordinate> path) {
-        String[][] mazePainting = initMazeDraw(maze);
-        for (var item : path) {
-            mazePainting[item.x() + 1][item.y() + 1] = CELL_IMAGE.get(CellType.WAY);
-        }
+        String[][] mazePainting = initMazeDrawWithPath(maze, path);
         printMaze(mazePainting);
     }
 
-    public static String[][] initMazeDraw(Maze maze) {
+    public String[][] initMazeDraw(Maze maze) {
         String[][] mazePainting = new String[maze.height + 2][maze.width + 2];
         for (int i = 1; i < maze.height + 1; i++) {
             mazePainting[i][0] = "|";
@@ -39,6 +37,14 @@ public class ConsoleMazePainter implements MazePainter {
         mazePainting[maze.height + 1][maze.width + 1] = "‾";
         mazePainting[maze.height + 1][0] = "‾";
         mazePainting[0][maze.width + 1] = "_";
+        return mazePainting;
+    }
+
+    public String[][] initMazeDrawWithPath(Maze maze, List<Coordinate> path) {
+        String[][] mazePainting = initMazeDraw(maze);
+        for (var item : path) {
+            mazePainting[item.x() + 1][item.y() + 1] = CELL_IMAGE.get(CellType.WAY);
+        }
         return mazePainting;
     }
 
