@@ -1,5 +1,7 @@
 package edu.project2;
 
+import java.util.List;
+
 public final class Main {
 
     private Main() {
@@ -11,7 +13,7 @@ public final class Main {
         MazeGenerator myGen = new RecursiveBacktrackingMazeGenerator();
         Maze maze = myGen.createMaze(height, width);
         MazePainter mzPainter = new ConsoleMazePainter();
-        mzPainter.showMaze(maze)
+        mzPainter.showMaze(maze);
         Coordinate start = new Coordinate(1, 1);
         Coordinate finish = new Coordinate(80, 95);
         MazeSolver mzSolver = new BfsMazeSolver();
