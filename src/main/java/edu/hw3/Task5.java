@@ -2,7 +2,7 @@ package edu.hw3;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.TreeMap;
+import java.util.Comparator;
 import org.jetbrains.annotations.Nullable;
 
 public class Task5 {
@@ -16,24 +16,23 @@ public class Task5 {
             return resultPersons;
         }
         var comparator = switch (order) {
-            case ASC -> null;
-            case DESC -> Collections.reverseOrder();
+            case ASC -> new PersonComparator();
+            case DESC -> Collections.reverseOrder(new PersonComparator());
         };
-        TreeMap<String, String> surNameAndName = new TreeMap<>(comparator);
         for (var str : inputArray) {
             String[] words = str.split(" ");
-            String key;
-            String value;
+            String name;
+            String surname;
             if (words.length < 2) {
-                key = words[0];
-                value = "";
+                name = words[0];
+                surname = "";
             } else {
-                key = words[1];
-                value = words[0];
+                name = words[0];
+                surname = words[1];
             }
-            surNameAndName.put(key, value);
+            resultPersons.add(new Person(name, surname));
         }
-        surNameAndName.forEach((k, v) -> resultPersons.add(new Person(v, k)));
+        Collections.sort(resultPersons, comparator);
         return resultPersons;
     }
 
@@ -50,11 +49,11 @@ public class Task5 {
             String surname;
             String name;
             if (words.length < 2) {
-                surname = words[0];
-                name = "";
-            } else {
-                surname = words[1];
                 name = words[0];
+                surname = "";
+            } else {
+                name = words[0];
+                surname = words[1];
             }
             resultArray.add(new Person(name, surname));
         });
@@ -62,7 +61,23 @@ public class Task5 {
         return resultArray;
     }
 
-    public static record Person(String name, String surname) {
+    public static class PersonComparator implements Comparator<Person> {
+        @Override
+        public int compare(Person person1, Person person2) {
+            if (person1.surname.isEmpty() && person2.surname.isEmpty()) {
+                return CharSequence.compare(person1.name, person2.name);
+            } else if (person1.surname.isEmpty()) {
+                return CharSequence.compare(person1.name, person2.surname);
+            } else if (person2.surname.isEmpty()) {
+                return CharSequence.compare(person1.surname, person2.name);
+            } else {
+                return CharSequence.compare(person1.surname, person2.surname);
+            }
+        }
+
+    }
+
+    public record Person(String name, String surname) {
         public String getAsString() {
             if (name.isEmpty()) {
                 return surname;
