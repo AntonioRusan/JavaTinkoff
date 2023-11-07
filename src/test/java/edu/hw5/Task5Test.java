@@ -15,7 +15,7 @@ public class Task5Test {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"123", "C065MK001", "", "Б065ЛK777", "R065MK781"})
+    @ValueSource(strings = {"123", "C065MK001", "", "Б065ЛK777", "R065MK781", "123A123BE777", "aaaC065MK78hgj"})
     @DisplayName("Неправильный номерной знак")
     void plateNotValidTest(String password) {
         assertFalse(Task5.checkRussianLicensePlate(password));

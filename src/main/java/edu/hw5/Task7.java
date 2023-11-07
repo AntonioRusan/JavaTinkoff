@@ -9,7 +9,7 @@ public class Task7 {
     }
 
     public static boolean checkThirdIsZero(String input) {
-        Pattern pattern = Pattern.compile("([01]){2}0[01]*");
+        Pattern pattern = Pattern.compile("^([01]){2}0[01]*$");
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }
@@ -21,7 +21,7 @@ public class Task7 {
     }
 
     public static boolean checkLengthFrom1To3(String input) {
-        Pattern pattern = Pattern.compile("[01]{1,3}");
+        Pattern pattern = Pattern.compile("^[01]{1,3}$");
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }

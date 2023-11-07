@@ -9,7 +9,7 @@ public class Task5 {
     }
 
     public static boolean checkRussianLicensePlate(String input) {
-        Pattern pattern = Pattern.compile("[ABEKMHOPCTYX]\\d{3}[ABEKMHOPCTYX][ABEKMHOPCTYX]((\\d[1-9])|([1-9]\\d{2}))");
+        Pattern pattern = Pattern.compile("^[ABEKMHOPCTYX]\\d{3}[ABEKMHOPCTYX][ABEKMHOPCTYX]((\\d[1-9])|([1-9]\\d{2}))$");
         Matcher matcher = pattern.matcher(input);
         return matcher.matches();
     }

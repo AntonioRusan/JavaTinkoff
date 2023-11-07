@@ -2,7 +2,6 @@ package edu.hw5;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -16,8 +15,9 @@ public class Task7Test {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"111", "11", "1102", "110ab91"})
-    @DisplayName("Строка не удовлетворяет условию: содержит не менее 3 символов, причем третий символ равен 0, алфавит {0, 1}")
+    @ValueSource(strings = {"111", "11", "1102", "110ab91", "g100", "000faa"})
+    @DisplayName(
+        "Строка не удовлетворяет условию: содержит не менее 3 символов, причем третий символ равен 0, алфавит {0, 1}")
     void notCheckThirdIsZero(String input) {
         assertFalse(Task7.checkThirdIsZero(input));
     }
@@ -44,7 +44,7 @@ public class Task7Test {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"", "1111", "10001", "1a1", "2", "20"})
+    @ValueSource(strings = {"", "1111", "10001", "1a1", "2", "20", "111B"})
     @DisplayName("Строка не удовлетворяет условию: длина не менее 1 и не более 3, алфавит {0, 1}")
     void notCheckLengthFrom1To3(String input) {
         assertFalse(Task7.checkLengthFrom1To3(input));
