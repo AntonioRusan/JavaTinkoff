@@ -30,10 +30,15 @@ public class Task1 {
         }
     }
 
-    public static String getAvgDuration(List<String> sessions) {
+    public static Duration getAvgDuration(List<String> sessions) {
         Double avgTimeInMillis = sessions.stream().mapToLong(Task1::getDuration).average().orElseThrow();
         Duration avgDuration = Duration.ofMillis(avgTimeInMillis.longValue());
-        return String.format("%dч %dм", avgDuration.toHours(), avgDuration.toMinutesPart());
+        return avgDuration;
+
+    }
+
+    public static String durationToStringHourMinutes(Duration dur) {
+        return String.format("%dч %dм", dur.toHours(), dur.toMinutesPart());
     }
 
 }
