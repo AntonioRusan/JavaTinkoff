@@ -5,6 +5,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static edu.hw6.Task2.cloneFile;
@@ -12,6 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Task2Test {
+    private final static Logger LOGGER = LogManager.getLogger();
+
     @Test
     @DisplayName("Проверка создания копий")
     void checkCloneFile() {
@@ -32,7 +36,7 @@ public class Task2Test {
             try {
                 Files.delete(path);
             } catch (Exception ex) {
-                System.out.println("Error while deleting copies!");
+                LOGGER.info("Error while deleting copies!");
             }
         }
     }
