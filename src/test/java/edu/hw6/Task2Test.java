@@ -20,11 +20,11 @@ public class Task2Test {
     @DisplayName("Проверка создания копий")
     void checkCloneFile() {
         // given
-        Path originalPath = Paths.get("src/test/java/edu/hw6/task2test/Tinkoff Bank Biggest Secret.txt");
+        Path originalPath = Paths.get("src/test/resources/hw6/task2Test/Tinkoff Bank Biggest Secret.txt");
         List<Path> expecteCopyPaths = new ArrayList<>() {{
-            add(Paths.get("src/test/java/edu/hw6/task2test/Tinkoff Bank Biggest Secret — копия.txt"));
-            add(Paths.get("src/test/java/edu/hw6/task2test/Tinkoff Bank Biggest Secret — копия (2).txt"));
-            add(Paths.get("src/test/java/edu/hw6/task2test/Tinkoff Bank Biggest Secret — копия (3).txt"));
+            add(Paths.get("src/test/resources/hw6/task2Test/Tinkoff Bank Biggest Secret — копия.txt"));
+            add(Paths.get("src/test/resources/hw6/task2Test/Tinkoff Bank Biggest Secret — копия (2).txt"));
+            add(Paths.get("src/test/resources/hw6/task2Test/Tinkoff Bank Biggest Secret — копия (3).txt"));
         }};
         for (var path : expecteCopyPaths) {
             assertDoesNotThrow(() -> cloneFile(originalPath));

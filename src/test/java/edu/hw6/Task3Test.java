@@ -17,15 +17,15 @@ public class Task3Test {
     @DisplayName("Проверка фильтров для текстовых файлов: либо текстовые файлы, либо размер больше 1000 байт")
     void filterTextFiles() {
         // given
-        Path dir = Paths.get("src/test/java/edu/hw6/task3Test");
+        Path dir = Paths.get("src/test/resources/hw6/task3Test");
         Set<String> expectedPaths = new HashSet<>() {{
-            add("src\\test\\java\\edu\\hw6\\task3Test\\emptyFile.txt");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\filterTest.txt");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\obiwan.txt");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\papich.jpg");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\test.txt");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\vault_boy_hacker.png");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\vault_boy_nerd.png");
+            add("emptyFile.txt");
+            add("filterTest.txt");
+            add("obiwan.txt");
+            add("papich.jpg");
+            add("test.txt");
+            add("vault_boy_hacker.png");
+            add("vault_boy_nerd.png");
         }};
 
         //when
@@ -36,7 +36,7 @@ public class Task3Test {
             .or(AbstractFilter.sizeLargerThan(1000));
         Set<String> actualPaths = new HashSet<>();
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(dir, filter)) {
-            entries.forEach(path -> actualPaths.add(path.toString()));
+            entries.forEach(path -> actualPaths.add(path.getFileName().toString()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -49,10 +49,10 @@ public class Task3Test {
     @DisplayName("Проверка фильтров для картинок")
     void filterImages() {
         // given
-        Path dir = Paths.get("src/test/java/edu/hw6/task3Test");
+        Path dir = Paths.get("src/test/resources/hw6/task3Test");
         Set<String> expectedPaths = new HashSet<>() {{
-            add("src\\test\\java\\edu\\hw6\\task3Test\\vault_boy_hacker.png");
-            add("src\\test\\java\\edu\\hw6\\task3Test\\vault_boy_nerd.png");
+            add("vault_boy_hacker.png");
+            add("vault_boy_nerd.png");
         }};
         //when
         AbstractFilter filter = AbstractFilter.regularFile()
@@ -63,7 +63,7 @@ public class Task3Test {
             .and(AbstractFilter.filePathMatchesRegex(".*vault_boy.*"));
         Set<String> actualPaths = new HashSet<>();
         try (DirectoryStream<Path> entries = Files.newDirectoryStream(dir, filter)) {
-            entries.forEach(path -> actualPaths.add(path.toString()));
+            entries.forEach(path -> actualPaths.add(path.getFileName().toString()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -18,7 +18,7 @@ public class Task4Test {
     @DisplayName("Проверка записи в файл")
     void createDiskMap() {
         // given
-        String stringPath = "src/test/java/edu/hw6/task4Test/SadButTrue.txt";
+        String stringPath = "src/test/resources/hw6/task4Test/SadButTrue.txt";
         String text = "Programming is learned by writing programs. ― Brian Kernighan";
 
         //when

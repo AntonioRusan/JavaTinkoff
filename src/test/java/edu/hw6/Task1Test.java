@@ -19,7 +19,7 @@ public class Task1Test {
     @DisplayName("Проверка создания DiskMap из файла")
     void createDiskMap() {
         // given
-        String stringPath = "src/test/java/edu/hw6/task1Test/diskMap.txt";
+        String stringPath = "src/test/resources/hw6/task1Test/diskMap.txt";
         Map<String, String> expected = new HashMap<>() {{
             put("1_key", "first");
             put("2_key", "second");
@@ -35,7 +35,7 @@ public class Task1Test {
     @DisplayName("Проверка добавления пары в DiskMap и потом удаления")
     void putAndRemoveToDiskMap() {
         // given
-        String stringPath = "src/test/java/edu/hw6/task1Test/changeDiskMap.txt";
+        String stringPath = "src/test/resources/hw6/task1Test/changeDiskMap.txt";
         Map<String, String> expected = new HashMap<>() {{
             put("init", "i'm first");
             put("added", "i'm added");
@@ -55,7 +55,7 @@ public class Task1Test {
     @DisplayName("Проверка добавления мапа в DiskMap и потом очистки")
     void putAllAndClearToDiskMap() {
         // given
-        String stringPath = "src/test/java/edu/hw6/task1Test/changeDiskMap.txt";
+        String stringPath = "src/test/resources/hw6/task1Test/changeDiskMap.txt";
         Map<String, String> expected = new HashMap<>() {{
             put("init", "i'm first");
             put("added", "i'm added");
@@ -83,7 +83,7 @@ public class Task1Test {
     @DisplayName("Проверка создания DiskMap с несуществующим файлом и тестировнаие других методов")
     void createNewFileWithDiskMap() {
         // given
-        String stringPath = "src/test/java/edu/hw6/task1Test/createNewDiskMap.txt";
+        String stringPath = "src/test/resources/hw6/task1Test/createNewDiskMap.txt";
         Path path = Paths.get(stringPath);
         assertThat(Files.exists(path)).isFalse();
         Map<String, String> expected = new HashMap<>() {{
