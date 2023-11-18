@@ -17,9 +17,10 @@ public class Task4 {
     }
 
     public static void chainOutputWritingToFile(String path, String text) {
+
         if (!Files.exists(Paths.get(path).getParent()))
         {
-            throw new RuntimeException("NO DIRECTORY!!!");
+            throw new RuntimeException("NO DIRECTORY!!!" + Paths.get(path).getParent());
         }
         try (
             OutputStream fileOutput = Files.newOutputStream(Paths.get(path), CREATE, WRITE);
