@@ -7,10 +7,9 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Arrays;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
+import static java.nio.file.StandardOpenOption.CREATE_NEW;
 
 public class Task4 {
     private Task4() {
@@ -18,7 +17,7 @@ public class Task4 {
 
     public static void chainOutputWritingToFile(String path, String text) throws Exception {
         try (
-            OutputStream fileOutput = Files.newOutputStream(Paths.get(path), StandardOpenOption.CREATE);
+            OutputStream fileOutput = Files.newOutputStream(Paths.get(path), CREATE_NEW);
             CheckedOutputStream checkedOutput = new CheckedOutputStream(fileOutput, new Adler32());
             BufferedOutputStream bufferedOutput = new BufferedOutputStream(checkedOutput);
             OutputStreamWriter outputWriter = new OutputStreamWriter(bufferedOutput, StandardCharsets.UTF_8);
@@ -26,7 +25,7 @@ public class Task4 {
         ) {
             printWriter.write(text);
         } catch (Exception ex) {
-            throw new Exception("Error writing to file!" + Arrays.toString(ex.getStackTrace()));
+            throw new Exception("Error writing to file!" + ex.getMessage());
         }
     }
 }
