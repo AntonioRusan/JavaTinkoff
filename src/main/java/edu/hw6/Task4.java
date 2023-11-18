@@ -9,20 +9,14 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
-import static java.nio.file.StandardOpenOption.CREATE;
-import static java.nio.file.StandardOpenOption.WRITE;
 
 public class Task4 {
     private Task4() {
     }
 
     public static void chainOutputWritingToFile(String path, String text) {
-        if (!Files.exists(Paths.get(path).getParent()))
-        {
-            throw new RuntimeException("NO DIRECTORY!!!" + Paths.get(path).getParent());
-        }
         try (
-            OutputStream fileOutput = Files.newOutputStream(Paths.get(path), CREATE, WRITE);
+            OutputStream fileOutput = Files.newOutputStream(Paths.get(path));
             CheckedOutputStream checkedOutput = new CheckedOutputStream(fileOutput, new Adler32());
             BufferedOutputStream bufferedOutput = new BufferedOutputStream(checkedOutput);
             OutputStreamWriter outputWriter = new OutputStreamWriter(bufferedOutput, StandardCharsets.UTF_8);
@@ -30,7 +24,7 @@ public class Task4 {
         ) {
             printWriter.write(text);
         } catch (Exception ex) {
-            throw new RuntimeException(ex.getMessage());
+            throw new RuntimeException("Error writing to file!" + ex.getMessage());
         }
     }
 }
