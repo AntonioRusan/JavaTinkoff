@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.zip.Adler32;
 import java.util.zip.CheckedOutputStream;
 
@@ -24,7 +25,7 @@ public class Task4 {
         ) {
             printWriter.write(text);
         } catch (Exception ex) {
-            throw new Exception("Error writing to file!" + ex);
+            throw new Exception("Error writing to file!" + Arrays.toString(ex.getStackTrace()));
         }
     }
 }
