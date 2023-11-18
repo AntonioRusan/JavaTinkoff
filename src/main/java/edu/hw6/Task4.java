@@ -17,7 +17,6 @@ public class Task4 {
     }
 
     public static void chainOutputWritingToFile(String path, String text) {
-
         if (!Files.exists(Paths.get(path).getParent()))
         {
             throw new RuntimeException("NO DIRECTORY!!!" + Paths.get(path).getParent());
