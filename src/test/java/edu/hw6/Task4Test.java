@@ -16,7 +16,7 @@ public class Task4Test {
 
     @Test
     @DisplayName("Проверка записи в файл")
-    void createDiskMap() {
+    void writeToFileWithStreams() {
         // given
         String stringPath = "src/test/resources/hw6/task4Test/SadButTrue.txt";
         String text = "Programming is learned by writing programs. ― Brian Kernighan";

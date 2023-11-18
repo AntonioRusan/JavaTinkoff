@@ -24,7 +24,7 @@ public class Task4 {
         ) {
             printWriter.write(text);
         } catch (Exception ex) {
-            throw new Exception("Error writing to file!");
+            throw new Exception("Error writing to file!" + ex);
         }
     }
 }
