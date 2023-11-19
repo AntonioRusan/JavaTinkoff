@@ -49,7 +49,7 @@ public class NGINXLogAnalyzer {
             OffsetDateTime dateTo = convertDate(to);
 
             List<LogItem> logs = loadFile(path);
-            LogReport report = new LogReport(logs, path, from, to);
+            LogReport report = new LogReport(logs, path, dateFrom, dateTo);
             if (format.equalsIgnoreCase("markdown")) {
                 System.out.println(report.getMarkdownReport());
             } else if (format.equalsIgnoreCase("adoc")) {
@@ -88,7 +88,7 @@ public class NGINXLogAnalyzer {
         return true;
     }
 
-    private OffsetDateTime convertDate(String dateString) {
+    public static OffsetDateTime convertDate(String dateString) {
         DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
         OffsetDateTime inputDate = OffsetDateTime.parse(dateString, inputFormatter);
 
@@ -100,9 +100,4 @@ public class NGINXLogAnalyzer {
         return OffsetDateTime.parse(formattedDateString, outputFormatter);
     }
 
-    public List<LogItem> filterDateLogs(List<LogItem> logs, OffsetDateTime fromDate, OffsetDateTime toDate) {
-        return logs.stream().filter(log -> (log.timeLocal().isAfter(fromDate)
-            && log.timeLocal().isBefore(toDate)) || log.timeLocal().isEqual(fromDate)
-            || log.timeLocal().isEqual(toDate)).toList();
-    }
 }

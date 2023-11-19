@@ -1,5 +1,6 @@
 package edu.project3;
 
+import java.time.OffsetDateTime;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
@@ -8,20 +9,20 @@ import java.util.Map;
 @SuppressWarnings({"MultipleStringLiterals", "MagicNumber"})
 public class LogReport {
     private String sourceName;
-    private List<LogItem> logs;
+    public List<LogItem> logs;
     private String fromDate;
     private String toDate;
-    private int totalRequests;
-    private Map<String, Integer> topResources = new HashMap<>();
-    private Map<Integer, Integer> responseCodes = new HashMap<>();
+    public int totalRequests;
+    public Map<String, Integer> topResources = new HashMap<>();
+    public Map<Integer, Integer> responseCodes = new HashMap<>();
 
     private Long averageResponseSize;
 
-    public LogReport(List<LogItem> logs, String sourceName, String fromDate, String toDate) {
+    public LogReport(List<LogItem> logs, String sourceName, OffsetDateTime fromDate, OffsetDateTime toDate) {
         this.sourceName = sourceName;
-        this.fromDate = fromDate;
-        this.toDate = toDate;
-        this.logs = logs;
+        this.fromDate = fromDate.toString();
+        this.toDate = toDate.toString();
+        this.logs = filterDateLogs(logs, fromDate, toDate);
         this.calculateAverageResponseSize();
         this.calculateTotalRequests();
         this.calculateResponseCodes();
@@ -129,5 +130,11 @@ public class LogReport {
             default:
                 return "Unknown";
         }
+    }
+
+    public List<LogItem> filterDateLogs(List<LogItem> logs, OffsetDateTime fromDate, OffsetDateTime toDate) {
+        return logs.stream().filter(log -> (log.timeLocal().isAfter(fromDate)
+            && log.timeLocal().isBefore(toDate)) || log.timeLocal().isEqual(fromDate)
+            || log.timeLocal().isEqual(toDate)).toList();
     }
 }
