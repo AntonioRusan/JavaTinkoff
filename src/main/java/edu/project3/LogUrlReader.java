@@ -7,15 +7,12 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class LogUrlReader {
     private LogUrlReader() {
     }
 
-    private final static Logger LOGGER = LogManager.getLogger();
     private final static long TIMEOUT_DURATION = 10;
 
     public static List<LogItem> readLogsFromUrl(String url) {

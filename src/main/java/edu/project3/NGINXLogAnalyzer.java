@@ -3,8 +3,15 @@ package edu.project3;
 import java.net.URL;
 import java.nio.file.InvalidPathException;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
+import java.util.Locale;
 
+@SuppressWarnings({"RegexpSinglelineJava", "MultipleStringLiterals"})
 public class NGINXLogAnalyzer {
     public NGINXLogAnalyzer() {
     }
@@ -27,12 +34,22 @@ public class NGINXLogAnalyzer {
                     format = args[i + 1];
                 }
             }
+            if (from.isEmpty()) {
+                from = "1970-01-01T00:00:00+00:00";
+            }
+            OffsetDateTime dateFrom = convertDate("1970-01-01T00:00:00+00:00");
 
-            //OffsetDateTime fromDate = OffsetDateTime.parse(from);
-            //OffsetDateTime toDate = OffsetDateTime.parse(to);
+            if (to.isEmpty()) {
+                LocalDateTime date = LocalDateTime.now();
+                ZoneOffset zoneOffset = ZoneOffset.ofHours(0);
+                OffsetDateTime timeUtc = date.atOffset(ZoneOffset.UTC);
+                OffsetDateTime offsetDate = timeUtc.withOffsetSameInstant(zoneOffset);
+                to = offsetDate.toString();
+            }
+            OffsetDateTime dateTo = convertDate(to);
 
             List<LogItem> logs = loadFile(path);
-            LogReport report = new LogReport(logs, from, to);
+            LogReport report = new LogReport(logs, path, from, to);
             if (format.equalsIgnoreCase("markdown")) {
                 System.out.println(report.getMarkdownReport());
             } else if (format.equalsIgnoreCase("adoc")) {
@@ -69,5 +86,23 @@ public class NGINXLogAnalyzer {
             return false;
         }
         return true;
+    }
+
+    private OffsetDateTime convertDate(String dateString) {
+        DateTimeFormatter inputFormatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME;
+        OffsetDateTime inputDate = OffsetDateTime.parse(dateString, inputFormatter);
+
+        DateTimeFormatter outputFormatter = new DateTimeFormatterBuilder()
+            .appendPattern("dd/MMM/yyyy:HH:mm:ss Z")
+            .toFormatter(Locale.ENGLISH);
+
+        String formattedDateString = inputDate.format(outputFormatter);
+        return OffsetDateTime.parse(formattedDateString, outputFormatter);
+    }
+
+    public List<LogItem> filterDateLogs(List<LogItem> logs, OffsetDateTime fromDate, OffsetDateTime toDate) {
+        return logs.stream().filter(log -> (log.timeLocal().isAfter(fromDate)
+            && log.timeLocal().isBefore(toDate)) || log.timeLocal().isEqual(fromDate)
+            || log.timeLocal().isEqual(toDate)).toList();
     }
 }

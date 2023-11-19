@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@SuppressWarnings({"MultipleStringLiterals", "MagicNumber"})
 public class LogReport {
     private String sourceName;
     private List<LogItem> logs;
@@ -13,12 +14,14 @@ public class LogReport {
     private int totalRequests;
     private Map<String, Integer> topResources = new HashMap<>();
     private Map<Integer, Integer> responseCodes = new HashMap<>();
-    private int averageResponseSize;
 
-    public LogReport(List<LogItem> logs, String fromDate, String toDate) {
-        this.logs = logs;
+    private Long averageResponseSize;
+
+    public LogReport(List<LogItem> logs, String sourceName, String fromDate, String toDate) {
+        this.sourceName = sourceName;
         this.fromDate = fromDate;
         this.toDate = toDate;
+        this.logs = logs;
         this.calculateAverageResponseSize();
         this.calculateTotalRequests();
         this.calculateResponseCodes();
@@ -43,15 +46,15 @@ public class LogReport {
     }
 
     public void calculateAverageResponseSize() {
-        int totalSize = logs.stream()
-            .mapToInt(LogItem::bodyBytesSent)
-            .sum();
+        Long totalSize = logs.stream()
+            .map(LogItem::bodyBytesSent)
+            .reduce(0L, Long::sum);
         averageResponseSize = totalSize / logs.size();
     }
 
     public String getMarkdownReport() {
         StringBuilder sb = new StringBuilder();
-        sb.append("#### Общая информация ####\n\n");
+        sb.append("#### Общая информация\n\n");
         sb.append("|        Метрика        |     Значение |\n");
         sb.append("|:---------------------:|-------------:|\n");
         sb.append(String.format("|       Файл(-ы)        | %s |\n", sourceName));
@@ -60,7 +63,7 @@ public class LogReport {
         sb.append(String.format("|  Количество запросов  | %,d |\n", totalRequests));
         sb.append(String.format("| Средний размер ответа | %,db |\n\n", averageResponseSize));
 
-        sb.append("#### Запрашиваемые ресурсы ####\n\n");
+        sb.append("#### Запрашиваемые ресурсы\n\n");
         sb.append("|     Ресурс      | Количество |\n");
         sb.append("|:---------------:|-----------:|\n");
         topResources.entrySet().stream()
@@ -68,7 +71,7 @@ public class LogReport {
             .forEach(e -> sb.append(String.format("|  %s  | %,d |\n", e.getKey(), e.getValue())));
         sb.append("\n");
 
-        sb.append("#### Коды ответа ####\n\n");
+        sb.append("#### Коды ответа\n\n");
         sb.append("| Код |          Имя          | Количество |\n");
         sb.append("|:---:|:---------------------:|-----------:|\n");
         responseCodes.entrySet().stream()
@@ -84,7 +87,7 @@ public class LogReport {
 
     public String getAdocReport() {
         StringBuilder sb = new StringBuilder();
-        sb.append("#### Общая информация ####\n\n");
+        sb.append("==== Общая информация\n\n");
         sb.append("|        Метрика        |     Значение |\n");
         sb.append("|:---------------------:|-------------:|\n");
         sb.append(String.format("|       Файл(-ы)        | %s |\n", sourceName));
@@ -93,7 +96,7 @@ public class LogReport {
         sb.append(String.format("|  Количество запросов  |    %,d |\n", totalRequests));
         sb.append(String.format("| Средний размер ответа |      %,db |\n\n", averageResponseSize));
 
-        sb.append("#### Запрашиваемые ресурсы ####\n\n");
+        sb.append("==== Запрашиваемые ресурсы\n\n");
         sb.append("|     Ресурс      | Количество |\n");
         sb.append("|:---------------:|-----------:|\n");
         topResources.entrySet().stream()
@@ -101,7 +104,7 @@ public class LogReport {
             .forEach(e -> sb.append(String.format("|  %s  |    %,d |\n", e.getKey(), e.getValue())));
         sb.append("\n");
 
-        sb.append("#### Коды ответа ####\n\n");
+        sb.append("==== Коды ответа\n\n");
         sb.append("| Код |          Имя          | Количество |\n");
         sb.append("|:---:|:---------------------:|-----------:|\n");
         responseCodes.entrySet().stream()

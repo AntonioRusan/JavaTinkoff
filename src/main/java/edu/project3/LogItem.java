@@ -8,7 +8,7 @@ public record LogItem(
     OffsetDateTime timeLocal,
     RequestItem request,
     Integer status,
-    Integer bodyBytesSent,
+    Long bodyBytesSent,
     String httpReferer,
     String httpUserAgent
 ) {

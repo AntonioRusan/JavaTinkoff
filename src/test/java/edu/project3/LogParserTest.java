@@ -1,41 +1,47 @@
 package edu.project3;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
-import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
-import static edu.hw6.Task4.chainOutputWritingToFile;
+import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class LogParserTest {
     @Test
-    void dateFormat() throws ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy:HH:mm:ss Z");
-        String dateString = "17/May/2015:08:05:32 +0000";
-        DateTimeFormatter dtf = new DateTimeFormatterBuilder()
-            .appendPattern("dd/MMM/yyyy:HH:mm:ss Z")
-            .toFormatter(Locale.ENGLISH);
-        OffsetDateTime timeLocal = OffsetDateTime.parse(dateString, dtf);
+    void testLogParser() {
+        // given
+        LogItem expected = new LogItem(
+            "93.180.71.3",
+            "-",
+            OffsetDateTime.parse("2015-05-17T08:05:32Z", DateTimeFormatter.ISO_OFFSET_DATE_TIME),
+            new RequestItem(
+                "GET",
+                "/downloads/product_1",
+                "HTTP/1.1"
+            ),
+            304,
+            0L,
+            "-",
+            "Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)"
+        );
+        String log =
+            "93.180.71.3 - - [17/May/2015:08:05:32 +0000] \"GET /downloads/product_1 HTTP/1.1\" 304 0 \"-\" \"Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)\"";
+
+        //when
+        LogItem actualLog = LogParser.parseLogString(log);
+
+        //then
+        assertThat(actualLog).isEqualTo(expected);
     }
 
     @Test
-    void testLogParser() {
+    void testExceptionLogParser() {
         // given
-        String log = "93.180.71.3 - - [17/May/2015:08:05:32 +0000] \"GET /downloads/product_1 HTTP/1.1\" 304 0 \"-\" \"Debian APT-HTTP/1.3 (0.8.16~exp12ubuntu10.21)\"";
-        LogParser.parseLogString(log);
+        String log =
+            "93.180.71.3 GET \"/downloads/product_1 HTTP/1.1\" 304 0";
 
         //when
-
+        assertThrows(RuntimeException.class, () -> LogParser.parseLogString(log));
         //then
     }
 }
