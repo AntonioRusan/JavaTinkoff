@@ -1,6 +1,5 @@
 package edu.hw5;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Task6 {
@@ -15,9 +14,7 @@ public class Task6 {
         }
         regexStrBuilder.append(".*");
         String regexStr = regexStrBuilder.toString();
-        Pattern pattern = Pattern.compile(regexStr);
-        Matcher matcher = pattern.matcher(mainString);
-        return matcher.matches();
+        return Pattern.compile(regexStr).matcher(mainString).find();
     }
 
 }

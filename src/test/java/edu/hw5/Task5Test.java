@@ -8,14 +8,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class Task5Test {
     @ParameterizedTest
-    @ValueSource(strings = {"A123BE777", "O777OO177", "C065MK78", "X111YT101", "X111YT01"})
+    @ValueSource(strings = {"A123BE777", "O777OO177", "C065MK78", "X111YT101", "X111YT01", "C065MK50"})
     @DisplayName("Правильный номерной знак")
     void plateIsValidTest(String password) {
         assertTrue(Task5.checkRussianLicensePlate(password));
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"123", "C065MK001", "", "Б065ЛK777", "R065MK781", "123A123BE777", "aaaC065MK78hgj"})
+    @ValueSource(strings = {"123", "C065MK001", "", "Б065ЛK777", "R065MK781", "123A123BE777", "aaaC065MK78hgj", "C065MK00"})
     @DisplayName("Неправильный номерной знак")
     void plateNotValidTest(String password) {
         assertFalse(Task5.checkRussianLicensePlate(password));
