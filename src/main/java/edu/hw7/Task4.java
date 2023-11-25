@@ -13,7 +13,6 @@ import org.apache.logging.log4j.Logger;
 @SuppressWarnings("MagicNumber")
 public class Task4 {
     private Task4() {
-
     }
 
     private final static Logger LOGGER = LogManager.getLogger();
