@@ -1,7 +1,5 @@
 package edu.hw7;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -16,14 +14,14 @@ public class Task4Test {
         var result = Task4.countPIMonteCarlo(1_000_000_000, 102400);
         double epsilon = 0.0001d;
         System.out.println(result);
-        assertThat(Math.abs(TRUE_PI - result) < epsilon).isTrue();;
+        assertThat(Math.abs(TRUE_PI - result) < epsilon).isTrue();
     }
 
     @Test
     @DisplayName("Проверка многопоточного вычисления числа Пи")
     void checkPIMultiThreads() {
-        int cores = Runtime.getRuntime().availableProcessors();
-        System.out.printf("Число ядер процессора: %d%n%n", cores);
+        //int cores = Runtime.getRuntime().availableProcessors();
+        //System.out.printf("Число ядер процессора: %d%n%n", cores);
         int[] iterations = new int[] {10_000_000, 100_000_000, 1_000_000_000};
         int[] threads = new int[] {1, 2, 4, 8, 12, 32, 100};
 
