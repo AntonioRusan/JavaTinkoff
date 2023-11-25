@@ -9,7 +9,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 @SuppressWarnings("MagicNumbers")
 public class Task4Test {
     double TRUE_PI = 3.14159265358;
-    private final static Logger LOGGER = LogManager.getLogger();
 
     @Test
     @DisplayName("Проверка однопоточного вычисления числа Пи")
@@ -45,7 +44,6 @@ public class Task4Test {
                 );
             }
             System.out.println();
-
         }
     }
 }
