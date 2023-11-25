@@ -1,33 +1,35 @@
 package edu.hw7;
 
 import edu.hw7.Task3.Person;
-import edu.hw7.Task3.SynchronizedPersonDatabase;
-import java.util.ArrayList;
-import java.util.List;
+import edu.hw7.Task3.ReadWriteLockPersonDatabase;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @SuppressWarnings("MagicNumber")
-public class Task3Test {
+public class Task3ReadWriteLockTest {
     private final static Logger LOGGER = LogManager.getLogger();
 
     @Test
     @DisplayName("Проверка многопоточного добавления Person")
     void addManyPersonsThreads() {
         //given
-        SynchronizedPersonDatabase db = new SynchronizedPersonDatabase();
+        ReadWriteLockPersonDatabase db = new ReadWriteLockPersonDatabase();
         int numOfThreads = 10_000;
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < numOfThreads; i++) {
             int finalI = i;
             threads.add(new Thread(() -> db.add(new Person(
-                finalI,
-                "Ivan" + finalI,
-                "City-17",
-                "8-800-555-35-35"
+                    finalI,
+                    "Ivan" + finalI,
+                    "City-17",
+                    "8-800-555-35-35"
             ))));
         }
         for (var thread : threads) {
@@ -48,19 +50,29 @@ public class Task3Test {
     }
 
     @Test
-    @DisplayName("Проверка многопоточного поиска Person")
+    @DisplayName("Проверка многопоточного поиска Person, операций чтения больше, чем операций записи")
     void findPersonsThreads() {
         //given
-        SynchronizedPersonDatabase db = new SynchronizedPersonDatabase();
+        ReadWriteLockPersonDatabase db = new ReadWriteLockPersonDatabase();
         //when
         List<Thread> threads = new ArrayList<>() {{
             add(new Thread(() -> db.add(new Person(1, "Ivan", "City-17", "8-800-555-35-35"))));
+            add(new Thread(() -> db.findByName("Ivan")));
+            add(new Thread(() -> db.findByAddress("City-17")));
             add(new Thread(() -> db.add(new Person(2, "Vitaly", "Garage", "8-999-666-14-01"))));
+            add(new Thread(() -> db.findByName("Vitaly")));
+            add(new Thread(() -> db.findByAddress("Garage")));
+            add(new Thread(() -> db.findByAddress("City-17")));
+            add(new Thread(() -> db.findByPhone("8-800-555-35-35")));
+            add(new Thread(() -> db.findByName("Ivan")));
             add(new Thread(() -> db.add(new Person(3, "Petya", "City-17", "8-800-555-35-39"))));
             add(new Thread(() -> db.findByName("Ivan")));
             add(new Thread(() -> db.findByAddress("City-17")));
             add(new Thread(() -> db.findByPhone("8-999-666-14-01")));
             add(new Thread(() -> db.add(new Person(4, "Vanya", "City-17", "8-800-555-35-39"))));
+            add(new Thread(() -> db.findByName("Vitaly")));
+            add(new Thread(() -> db.findByName("Petya")));
+            add(new Thread(() -> db.findByName("Vanya")));
         }};
         for (var thread : threads) {
             thread.start();
@@ -82,7 +94,7 @@ public class Task3Test {
     @DisplayName("Проверка однопоточного поиска Person")
     void findPersons() {
         //given
-        SynchronizedPersonDatabase db = new SynchronizedPersonDatabase();
+        ReadWriteLockPersonDatabase db = new ReadWriteLockPersonDatabase();
         //when
         List<Thread> threads = new ArrayList<>() {{
             add(new Thread(() -> db.add(new Person(1, "Ivan", "City-17", "8-800-555-35-35"))));
@@ -112,7 +124,7 @@ public class Task3Test {
     @DisplayName("Проверка многопоточного удаления Person")
     void delPersonsThreads() {
         //given
-        SynchronizedPersonDatabase db = new SynchronizedPersonDatabase();
+        ReadWriteLockPersonDatabase db = new ReadWriteLockPersonDatabase();
         //when
         db.add(new Person(1, "Ivan", "City-17", "8-800-555-35-35"));
         List<Thread> threads = new ArrayList<>() {{
