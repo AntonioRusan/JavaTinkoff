@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.PathMatcher;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -15,30 +14,27 @@ public class LogFileReader {
     }
 
     public static List<LogItem> readLogsFromFile(String inputPath) {
-        List<LogItem> logs = new ArrayList<>();
         try {
             PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:" + inputPath);
             Path path = Paths.get(inputPath);
             if (matcher.matches(path)) {
-                logs.addAll(Files.lines(path)
+                return (Files.lines(path)
                     .map(LogParser::parseLogString)
                     .toList());
             } else {
-                Stream<Path> files = Files.walk(path)
-                    .filter(Files::isRegularFile);
-                files.forEach(file -> {
-                    try {
-                        logs.addAll(Files.lines(file)
-                            .map(LogParser::parseLogString)
-                            .toList());
-                    } catch (IOException e) {
-                        throw new RuntimeException();
-                    }
-                });
+                Stream<LogItem> logItemStream = Files.walk(path)
+                    .filter(Files::isRegularFile).flatMap(file -> {
+                            try {
+                                return Files.lines(file).map(LogParser::parseLogString);
+                            } catch (IOException e) {
+                                throw new RuntimeException();
+                            }
+                        }
+                    );
+                return logItemStream.toList();
             }
         } catch (IOException ex) {
             throw new RuntimeException("Error reading logs from file: " + ex.getMessage());
         }
-        return logs;
     }
 }
