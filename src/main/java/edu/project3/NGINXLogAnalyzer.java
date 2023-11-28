@@ -62,9 +62,9 @@ public class NGINXLogAnalyzer {
 
     private List<LogItem> loadFile(String path) {
         if (isUrlValid(path)) {
-            return LogUrlReader.readLogsFromUrl(path);
+            return LogUrlReader.readLogsFromUrl(path).toList();
         } else if (isPathValid(path)) {
-            return LogFileReader.readLogsFromFile(path);
+            return LogFileReader.readLogsFromFile(path).toList();
         } else {
             throw new IllegalArgumentException("Wrong log source path!");
         }

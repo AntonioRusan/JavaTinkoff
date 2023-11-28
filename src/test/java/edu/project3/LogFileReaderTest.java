@@ -11,7 +11,7 @@ public class LogFileReaderTest {
         // given
         String path = "src/test/resources/project3/logs.txt";
         //when
-        List<LogItem> actual = LogFileReader.readLogsFromFile(path);
+        List<LogItem> actual = LogFileReader.readLogsFromFile(path).toList();
         //then
         assertThat(actual.size()).isEqualTo(expectedSize);
     }

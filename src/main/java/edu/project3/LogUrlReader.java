@@ -7,6 +7,7 @@ import java.net.http.HttpResponse;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 import static java.time.temporal.ChronoUnit.SECONDS;
 
 public class LogUrlReader {
@@ -15,7 +16,7 @@ public class LogUrlReader {
 
     private final static long TIMEOUT_DURATION = 10;
 
-    public static List<LogItem> readLogsFromUrl(String url) {
+    public static Stream<LogItem> readLogsFromUrl(String url) {
         try {
             var request = HttpRequest.newBuilder()
                 .uri(new URI(url))
@@ -26,7 +27,7 @@ public class LogUrlReader {
                 .send(request, HttpResponse.BodyHandlers.ofString());
             String responseBody = response.body();
             List<String> bodyAsStringArray = Arrays.asList(responseBody.split("\n"));
-            return bodyAsStringArray.stream().map(LogParser::parseLogString).toList();
+            return bodyAsStringArray.stream().map(LogParser::parseLogString);
         } catch (Exception ex) {
             throw new RuntimeException("Error getting data from " + url);
         }

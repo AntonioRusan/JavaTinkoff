@@ -12,7 +12,7 @@ public class LogUrlReaderTest {
         String url =
             "https://raw.githubusercontent.com/elastic/examples/master/Common%20Data%20Formats/nginx_logs/nginx_logs";
         //when
-        List<LogItem> actual = LogUrlReader.readLogsFromUrl(url);
+        List<LogItem> actual = LogUrlReader.readLogsFromUrl(url).toList();
         //then
         assertThat(actual.size()).isEqualTo(expectedSize);
     }
