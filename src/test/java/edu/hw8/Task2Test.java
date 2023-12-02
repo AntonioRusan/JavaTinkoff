@@ -39,9 +39,9 @@ public class Task2Test {
                     counter.incrementAndGet();
                 });
             }
-            assertThat(counter.get()).isEqualTo(numOfIterations);
         } catch (Exception ex) {
             System.out.println("Exception:" + ex.getMessage());
         }
+        assertThat(counter.get()).isEqualTo(numOfIterations);
     }
 }
