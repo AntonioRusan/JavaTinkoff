@@ -24,7 +24,7 @@ public class Task2Test {
     }
 
     @Test
-    void testFibonacciThreadPool() {
+    void testFibonacciThreadPool() throws InterruptedException {
         int fibonacciNumber = 50;
         long expectedFibonacci = 12586269025L;
         int numThreads = 10;
@@ -42,6 +42,7 @@ public class Task2Test {
         } catch (Exception ex) {
             System.out.println("Exception:" + ex.getMessage());
         }
+        Thread.sleep(3000);
         assertThat(counter.get()).isEqualTo(numOfIterations);
     }
 }
