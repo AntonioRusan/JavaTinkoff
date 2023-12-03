@@ -17,7 +17,7 @@ import java.util.concurrent.Executors;
 
 @SuppressWarnings("MagicNumber")
 public class Server {
-    private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private final ExecutorService executor = Executors.newFixedThreadPool(3);
     private static final List<String> QUOTE_DICTIONARY = Collections.synchronizedList(new ArrayList<>() {{
         add("Не переходи на личности там, где их нет");
         add("Если твои противники перешли на личные оскорбления, будь уверена — твоя победа не за горами");
