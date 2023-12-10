@@ -12,6 +12,16 @@ public class Task2 {
     public static class ParallelTreeProcessor {
         private static final int NUM_OF_FILES = 1000;
 
+        public static List<File> findDirectoriesWithMoreThan1000Files(File rootDirectory) {
+            ForkJoinPool forkJoinPool = new ForkJoinPool();
+            return forkJoinPool.invoke(new DirectorySearchTask(rootDirectory));
+        }
+
+        public static List<File> findFiles(File rootDirectory, Predicate<File> predicate) {
+            ForkJoinPool forkJoinPool = new ForkJoinPool();
+            return forkJoinPool.invoke(new FileSearchTask(rootDirectory, predicate));
+        }
+
         static class DirectorySearchTask extends RecursiveTask<List<File>> {
             private final File directory;
 
@@ -83,16 +93,6 @@ public class Task2 {
 
                 return matchingFiles;
             }
-        }
-
-        public static List<File> findDirectoriesWithMoreThan1000Files(File rootDirectory) {
-            ForkJoinPool forkJoinPool = new ForkJoinPool();
-            return forkJoinPool.invoke(new DirectorySearchTask(rootDirectory));
-        }
-
-        public static List<File> findFiles(File rootDirectory, Predicate<File> predicate) {
-            ForkJoinPool forkJoinPool = new ForkJoinPool();
-            return forkJoinPool.invoke(new FileSearchTask(rootDirectory, predicate));
         }
     }
 
