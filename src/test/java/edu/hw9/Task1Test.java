@@ -8,7 +8,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class Task1Test {
     @Test
-    void checkStatsCollector() throws InterruptedException {
+    void checkStatsCollector() {
         List<StatsCollector.StatsResult> expectedBefore = new ArrayList<>() {{
             add(new StatsCollector.StatsResult("metric1", 7.0, 1.75, 4.7, -1.5));
             add(new StatsCollector.StatsResult("metric2", 0.0, 0.0, 1.5, -2.0));
