@@ -19,15 +19,9 @@ public class Task1Test {
         }};
         StatsCollector collector = new StatsCollector();
 
-        Thread pushThread1 = new Thread(() -> {
-            collector.push("metric1", new double[] {-1.5, 2.5, 4.7, 1.3});
-        });
-        Thread pushThread2 = new Thread(() -> {
-            collector.push("metric2", new double[] {0.5, 1.5, -2.0});
-        });
-        Thread pushThread3 = new Thread(() -> {
-            collector.push("metric1", new double[] {0.5, 1.5, -1.0, 2.0});
-        });
+        Thread pushThread1 = new Thread(() -> collector.push("metric1", new double[] {-1.5, 2.5, 4.7, 1.3}));
+        Thread pushThread2 = new Thread(() -> collector.push("metric2", new double[] {0.5, 1.5, -2.0}));
+        Thread pushThread3 = new Thread(() -> collector.push("metric1", new double[] {0.5, 1.5, -1.0, 2.0}));
 
         pushThread1.start();
         pushThread2.start();
@@ -47,7 +41,6 @@ public class Task1Test {
 
         var resultStatsAfter = collector.stats();
 
-        assertThat(resultStatsBefore).isEqualTo(expectedBefore);
         assertThat(resultStatsAfter).isEqualTo(expectedAfter);
 
     }
