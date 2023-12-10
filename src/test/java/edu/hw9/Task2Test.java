@@ -1,6 +1,6 @@
 package edu.hw9;
 
-import edu.hw9.Task2.ParallelTreeProcessor;
+import edu.hw9.Task2.ParallelFileTreeProcessor;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +26,8 @@ public class Task2Test {
             }
         }
 
-        List<File> largeDirectories = ParallelTreeProcessor.findDirectoriesWithMoreThan1000Files(new File(rootPath));
+        List<File> largeDirectories =
+            ParallelFileTreeProcessor.findDirectoriesWithMoreThanNumberFiles(new File(rootPath));
         assertNotNull(largeDirectories);
         for (File dir : largeDirectories) {
             assertTrue(dir.listFiles().length > 1000);
@@ -44,7 +45,8 @@ public class Task2Test {
     @DisplayName("поиск файлов по предикату: размер")
     public void testFindFilesBySize() {
         File rootDirectory = new File(rootPath);
-        List<File> matchingFiles = ParallelTreeProcessor.findFiles(rootDirectory, file -> file.length() > 3);
+        List<File> matchingFiles =
+            ParallelFileTreeProcessor.findFilesByFilter(rootDirectory, file -> file.length() > 3);
         assertNotNull(matchingFiles);
         for (File file : matchingFiles) {
             assertTrue(file.length() > 3);
@@ -56,7 +58,7 @@ public class Task2Test {
     public void testFindFilesByExtension() {
         File rootDirectory = new File(rootPath);
         List<File> matchingFiles =
-            ParallelTreeProcessor.findFiles(rootDirectory, file -> file.getName().endsWith(".json"));
+            ParallelFileTreeProcessor.findFilesByFilter(rootDirectory, file -> file.getName().endsWith(".json"));
         assertNotNull(matchingFiles);
         for (File file : matchingFiles) {
             assertTrue(file.getName().endsWith(".json"));

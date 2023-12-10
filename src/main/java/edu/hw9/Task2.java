@@ -9,15 +9,15 @@ import java.util.function.Predicate;
 
 public class Task2 {
 
-    public static class ParallelTreeProcessor {
+    public static class ParallelFileTreeProcessor {
         private static final int NUM_OF_FILES = 1000;
 
-        public static List<File> findDirectoriesWithMoreThan1000Files(File rootDirectory) {
+        public static List<File> findDirectoriesWithMoreThanNumberFiles(File rootDirectory) {
             ForkJoinPool forkJoinPool = new ForkJoinPool();
             return forkJoinPool.invoke(new DirectorySearchTask(rootDirectory));
         }
 
-        public static List<File> findFiles(File rootDirectory, Predicate<File> predicate) {
+        public static List<File> findFilesByFilter(File rootDirectory, Predicate<File> predicate) {
             ForkJoinPool forkJoinPool = new ForkJoinPool();
             return forkJoinPool.invoke(new FileSearchTask(rootDirectory, predicate));
         }
