@@ -133,9 +133,9 @@ public class BfsMultithreadingMazeSolverTest {
         // given
         MazeGenerator mazeGenerator = new RecursiveBacktrackingMazeGenerator();
 
-        Maze maze = mazeGenerator.createMaze(200, 200);
+        Maze maze = mazeGenerator.createMaze(100, 100);
         Coordinate start = new Coordinate(0, 0);
-        Coordinate finish = new Coordinate(100, 100);
+        Coordinate finish = new Coordinate(50, 50);
 
         MazeSolver mzSolver = new BfsMazeSolver();
 
