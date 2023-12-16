@@ -28,6 +28,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class ByteBuddyTasksTest {
     @Test
+    @Generated
     public void task1HelloTest() throws Exception {
         Class<?> dynamicType = new ByteBuddy()
             .subclass(Object.class)
@@ -39,14 +40,14 @@ public class ByteBuddyTasksTest {
         assertThat(dynamicType.getDeclaredConstructor().newInstance().toString()).isEqualTo("Hello, ByteBuddy!");
     }
 
-    @Generated
+
     public static class ArithmeticUtils {
         public int sum(int a, int b) {
             return a + b;
         }
     }
 
-    @Generated
+
     public static class MultiplicationInterceptor {
         public int sum(int a, int b) {
             return a * b;
@@ -54,6 +55,7 @@ public class ByteBuddyTasksTest {
     }
 
     @Test
+    @Generated
     public void task2InterceptorTest() throws Exception {
         ByteBuddyAgent.install();
         ArithmeticUtils utils = new ArithmeticUtils();
