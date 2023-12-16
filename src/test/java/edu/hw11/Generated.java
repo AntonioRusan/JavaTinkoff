@@ -11,7 +11,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 //Аннотация, чтобы исключить генерируемые классы из jaccoco и не было ошибок на github
 @Documented
-@Retention(CLASS)
+@Retention(RUNTIME)
 @Target({TYPE, METHOD, CONSTRUCTOR})
 public @interface Generated {
 }
