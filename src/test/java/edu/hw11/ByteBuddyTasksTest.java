@@ -26,9 +26,9 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static net.bytebuddy.matcher.ElementMatchers.named;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@ByteBuddyTasksTest.Generated
 public class ByteBuddyTasksTest {
     @Test
-    @Generated
     public void task1HelloTest() throws Exception {
         Class<?> dynamicType = new ByteBuddy()
             .subclass(Object.class)
@@ -55,7 +55,6 @@ public class ByteBuddyTasksTest {
     }
 
     @Test
-    @Generated
     public void task2InterceptorTest() throws Exception {
         ByteBuddyAgent.install();
         ArithmeticUtils utils = new ArithmeticUtils();
