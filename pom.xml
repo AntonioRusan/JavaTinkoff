@@ -181,7 +181,7 @@
                     <version>${jacoco-maven-plugin.version}</version>
                     <configuration>
                         <excludes>
-                            <exclude>edu/hw11/**/*.class</exclude>
+                            <exclude>edu/hw11/**/*</exclude>
                         </excludes>
                     </configuration>
                     <executions>
