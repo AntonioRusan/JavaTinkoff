@@ -40,7 +40,7 @@ public class ByteBuddyTasksTest {
 
     @Generated
     @Test
-    public void task2InterceptorTest() throws Exception {
+    public void task2InterceptorTest() {
         ByteBuddyAgent.install();
         ArithmeticUtils utils = new ArithmeticUtils();
         new ByteBuddy()
