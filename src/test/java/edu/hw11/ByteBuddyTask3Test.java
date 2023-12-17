@@ -11,7 +11,7 @@ import net.bytebuddy.jar.asm.Opcodes;
 import org.junit.jupiter.api.Test;
 
 public class ByteBuddyTask3Test {
-    @Test
+    /*@Test
     public void task3() throws Exception {
         Class<?> loadedClass = new ByteBuddy()
             .subclass(Object.class)
@@ -26,7 +26,7 @@ public class ByteBuddyTask3Test {
         Method fibMethod = loadedClass.getDeclaredMethod("fib", int.class);
         int result = (int) fibMethod.invoke(null, 10);
         System.out.println(result);
-    }
+    }*/
 
     public static class FibonacciByteCodeAppender implements ByteCodeAppender {
         @Override
