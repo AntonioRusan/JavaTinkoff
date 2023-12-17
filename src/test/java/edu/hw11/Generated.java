@@ -9,7 +9,7 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.RetentionPolicy.CLASS;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-//Аннотация, чтобы исключить генерируемые классы из jaccoco и не было ошибок на github
+//Аннотация, чтобы исключить генерируемые классы из jaccoco и не было ошибок на github, но не работает(
 @Documented
 @Retention(RUNTIME)
 @Target({TYPE, METHOD, CONSTRUCTOR})
