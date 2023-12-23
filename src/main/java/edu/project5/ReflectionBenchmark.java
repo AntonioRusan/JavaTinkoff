@@ -55,15 +55,16 @@ public class ReflectionBenchmark {
         String methodName = "name";
 
         method = Student.class.getMethod(methodName);
+        MethodHandles.Lookup lookup = MethodHandles.lookup();
 
-        methodHandle = MethodHandles.lookup().findVirtual(
+        methodHandle = lookup.findVirtual(
             Student.class,
             methodName,
             MethodType.methodType(String.class)
         );
 
         CallSite site = LambdaMetafactory.metafactory(
-            MethodHandles.lookup(),
+            lookup,
             "apply",
             MethodType.methodType(StudentNameGetterFunction.class),
             MethodType.methodType(String.class, Student.class),
