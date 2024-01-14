@@ -24,7 +24,7 @@ import org.openjdk.jmh.runner.options.TimeValue;
 @SuppressWarnings("UncommentedMain")
 public class ReflectionBenchmark {
     private final static int WARMUP_SECONDS = 5;
-    private final static int MEASUREMENT_SECONDS = 120;
+    private final static int MEASUREMENT_SECONDS = 5;
 
     public static void main(String[] args) throws RunnerException {
         Options options = new OptionsBuilder()
@@ -49,6 +49,8 @@ public class ReflectionBenchmark {
     private MethodHandle methodHandle;
     private MethodHandle lambdaMethodHandle;
 
+    private StudentNameGetterFunction studentNameGetterFunction;
+
     @Setup
     public void setup() throws Throwable {
         student = new Student("Ryan", "Gosling");
@@ -72,6 +74,8 @@ public class ReflectionBenchmark {
             methodHandle.type()
         );
         lambdaMethodHandle = site.getTarget();
+
+        studentNameGetterFunction = (StudentNameGetterFunction) lambdaMethodHandle.invokeExact();
     }
 
     @Benchmark
@@ -94,8 +98,7 @@ public class ReflectionBenchmark {
 
     @Benchmark
     public void lambdaMethodHandleAccess(Blackhole bh) throws Throwable {
-        StudentNameGetterFunction function = (StudentNameGetterFunction) lambdaMethodHandle.invokeExact();
-        String name = function.apply(student);
+        String name = studentNameGetterFunction.apply(student);
         bh.consume(name);
     }
 
